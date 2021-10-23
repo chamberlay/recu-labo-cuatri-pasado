@@ -1,6 +1,6 @@
-#include "sPerroFunciones.h"
+#include "sPerro_Funciones.h"
 #include "recuperatorioPPInputs.h"
-#include "recuperatorioPPValidaciones.h"
+#include "sEstadiaDiaria_Funciones.h"
 
 void pedirString(char* cadena, char* mensaje, char* mensajeError, int max)
 {
@@ -21,6 +21,37 @@ void pedirString(char* cadena, char* mensaje, char* mensajeError, int max)
 	}
 
 	strcpy(cadena, cadenaSinValidar);
+}
+
+
+
+int verificarConfirmacion(char* mensaje)
+{
+	int retorno = 1;
+	char respuesta;
+
+	pedirCaracter(&respuesta, mensaje);
+
+	if(respuesta == 's' || respuesta == 'S')
+	{
+		retorno = 0;
+	}
+	return retorno;
+}
+
+int pedirCaracter(char* caracter, char* mensaje)
+{
+	int retorno = -1;
+
+	if(caracter != NULL && mensaje != NULL)
+	{
+			printf("%s", mensaje);
+			fflush(stdin);
+			*caracter = getchar();
+			retorno = 0;
+	}
+
+	return retorno;
 }
 
 int pedirEntero(int* entero, char* mensaje, char* mensajeError, int min, int max)
@@ -68,21 +99,6 @@ float pedirFloat(float* flotante, char* mensaje, char* mensajeError, float min, 
 
 		*flotante = numeroIngresado;
 		retorno = 0;
-	}
-
-	return retorno;
-}
-
-int pedirCaracter(char* caracter, char* mensaje)
-{
-	int retorno = -1;
-
-	if(caracter != NULL && mensaje != NULL)
-	{
-			printf("%s", mensaje);
-			fflush(stdin);
-			*caracter = getchar();
-			retorno = 0;
 	}
 
 	return retorno;

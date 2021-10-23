@@ -8,20 +8,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "string.h"
-#include "sPerroFunciones.h"
+#include "sPerro_Funciones.h"
 #include "recuperatorioPPInputs.h"
-#include "recuperatorioPPValidaciones.h"
+#include "sEstadiaDiaria_Funciones.h"
 
 int main(void) {
 	setbuf(stdout, NULL);
 
+	int cantidadEstadias = 0;
 	int opcion;
-	int cantidadDePerritos = 3;
 
-	sPerro perritos[TAM_PERRITOS];
+	sPerro perros[TAM_PERROS];
+	sEstadiaDiaria estadias[TAM_ESTADIAS];
 
-	sPerro_inicializarArray(perritos, TAM_PERRITOS);
-	sPerro_hardCodear(perritos, TAM_PERRITOS);
+	sEstadiaDiaria_inicializar_Array(estadias, TAM_ESTADIAS);
+
+	sPerro_inicializarArray(perros, TAM_PERROS);
+	sPerro_hardCodear(perros, TAM_PERROS);
 
 		do
 		{
@@ -49,33 +52,51 @@ int main(void) {
 			switch(opcion)
 			{
 				case 1:
-					if(sPerro_cargarPerritos(perritos, TAM_PERRITOS) == 0)
+					if(sEstadiaDiaria_cargarEstadias(estadias, TAM_ESTADIAS) == 0)
 					{
-						cantidadDePerritos ++;
+						cantidadEstadias ++;
 					}
 				break;
 
 				case 2:
-						printf("hago algo");
-				break;
-
-				case 3:
-						printf("hago algo");
-				break;
-
-				case 4:
-						printf("hago algo");
-				break;
-
-				case 5:
-					if(cantidadDePerritos > 0)
+					if(cantidadEstadias > 0)
 					{
-						sPerro_mostrarPerritos(perritos, TAM_PERRITOS);
+						printf("En construcción");
+					}
+					else
+					{
+						printf("No hay estadias cargadas.\n");
 					}
 				break;
 
+				case 3:
+					if(cantidadEstadias > 0)
+					{
+						printf("En construcción");
+					}
+					else
+					{
+						printf("No hay estadias cargadas.\n");
+					}
+				break;
+
+				case 4:
+					if(cantidadEstadias > 0)
+					{
+						sEstadiaDiaria_mostrarEstadias(estadias, TAM_ESTADIAS);
+					}
+					else
+					{
+						printf("No hay estadias cargadas.\n");
+					}
+				break;
+
+				case 5:
+						sPerro_mostrarPerros(perros, TAM_PERROS);
+				break;
+
 				case 6:
-					printf("El promedio de edad de los perros es de: %d\n", sPerro_calcularPromedioEdad(perritos, TAM_PERRITOS));
+					printf("El promedio de edad de los perros es de: %d\n", sPerro_calcularPromedioEdad(perros, TAM_PERROS));
 				break;
 
 				case 7:
