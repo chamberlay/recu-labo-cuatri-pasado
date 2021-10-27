@@ -1,6 +1,8 @@
 #include "sPerro_Funciones.h"
+#include "recuperatorioPPFecha.h"
 #include "recuperatorioPPInputs.h"
 #include "sEstadiaDiaria_Funciones.h"
+#include "recupetarioPPValidaciones.h"
 
 void pedirString(char* cadena, char* mensaje, char* mensajeError, int max)
 {

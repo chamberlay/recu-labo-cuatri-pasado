@@ -1,6 +1,8 @@
 #include "sPerro_Funciones.h"
+#include "recuperatorioPPFecha.h"
 #include "recuperatorioPPInputs.h"
 #include "sEstadiaDiaria_Funciones.h"
+#include "recupetarioPPValidaciones.h"
 
 /*validaciones: 1 si sale mal y 0 si sale bien
  accion: -1 si da error y 0 si esta bien
@@ -53,6 +55,8 @@ void sPerro_hardCodear(sPerro perros[], int tam)
 		perros[i].estado = OCUPADO;
 	}
 }
+
+
 
 
 

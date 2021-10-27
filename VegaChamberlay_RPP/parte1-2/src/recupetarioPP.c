@@ -7,10 +7,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "string.h"
+#include <string.h>
+#include <ctype.h>
 #include "sPerro_Funciones.h"
+#include "recuperatorioPPFecha.h"
 #include "recuperatorioPPInputs.h"
 #include "sEstadiaDiaria_Funciones.h"
+#include "recupetarioPPValidaciones.h"
 
 int main(void) {
 	setbuf(stdout, NULL);
@@ -61,7 +64,8 @@ int main(void) {
 				case 2:
 					if(cantidadEstadias > 0)
 					{
-						printf("En construcción");
+						sEstadiaDiaria_mostrarEstadias(estadias, TAM_ESTADIAS);
+						sEstadiaDiaria_modificarEstadia(estadias, perros, TAM_ESTADIAS);
 					}
 					else
 					{
@@ -72,7 +76,8 @@ int main(void) {
 				case 3:
 					if(cantidadEstadias > 0)
 					{
-						printf("En construcción");
+						sEstadiaDiaria_mostrarEstadias(estadias, TAM_ESTADIAS);
+						sEstadiaDiaria_cancelarEstadia(estadias, TAM_ESTADIAS);
 					}
 					else
 					{
