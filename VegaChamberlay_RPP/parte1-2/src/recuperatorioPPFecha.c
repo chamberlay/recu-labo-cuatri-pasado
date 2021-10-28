@@ -1,4 +1,5 @@
 #include "sPerro_Funciones.h"
+#include "sDuenio_Funciones.h"
 #include "recuperatorioPPFecha.h"
 #include "recuperatorioPPInputs.h"
 #include "sEstadiaDiaria_Funciones.h"

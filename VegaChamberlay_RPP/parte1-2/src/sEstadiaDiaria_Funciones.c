@@ -1,4 +1,5 @@
 #include "sPerro_Funciones.h"
+#include "sDuenio_Funciones.h"
 #include "recuperatorioPPFecha.h"
 #include "recuperatorioPPInputs.h"
 #include "sEstadiaDiaria_Funciones.h"
@@ -8,12 +9,12 @@
  accion: -1 si da error y 0 si esta bien
  */
 
-void sEstadiaDiaria_mostrarEstadia(sEstadiaDiaria estadias)
+void sEstadiaDiaria_mostrarEstadia(sEstadiaDiaria estadias, sDuenio duenios)
 {
-	printf("%-20d %-20s %-20d %-20d %-20d %-20d\n", estadias.id, estadias.nombreDuenio, estadias.telefonoContacto, estadias.fecha.dia, estadias.fecha.mes, estadias.fecha.anio);
+	printf("%-20d %-20s %-20d %-20d %-20d %-20d\n", estadias.id, duenios.nombre, duenios.telefono, estadias.fecha.dia, estadias.fecha.mes, estadias.fecha.anio);
 }
 
-void sEstadiaDiaria_mostrarEstadias(sEstadiaDiaria estadias[], int tam)
+void sEstadiaDiaria_mostrarEstadias(sEstadiaDiaria estadias[], sDuenio duenios[], int tam)
 {
 	int i;
 
@@ -23,7 +24,7 @@ void sEstadiaDiaria_mostrarEstadias(sEstadiaDiaria estadias[], int tam)
 	{
 		if(estadias[i].estado == OCUPADO)
 		{
-			sEstadiaDiaria_mostrarEstadia(estadias[i]);
+			sEstadiaDiaria_mostrarEstadia(estadias[i], duenios[i]);
 		}
 	}
 }
@@ -41,17 +42,35 @@ void sEstadiaDiaria_inicializar_Array(sEstadiaDiaria estadias[], int tam)
 
 
 
-int sEstadiaDiaria_cargarEstadia(sEstadiaDiaria estadias[], int i)
+int sEstadiaDiaria_cargarEstadia(sEstadiaDiaria estadias[], sPerro perros[], sDuenio duenios[], int i)
 {
 	int retorno = -1;
+	int auxIdPerro;
+	char auxNombreDuenio[41];
 
-	pedirEntero(&estadias[i].idPerro, "Ingrese el id de su mascota (hasta 4 digitos): ", "Error, ingrese el id de su mascota (hasta 4 digitos): ", 7000, 7002);
-	pedirString(estadias[i].nombreDuenio, "Ingrese el nombre del dueño del perro: ", "Nombre invalido, hasta 21 caracteres, reingrese: ", 21);
-	pedirEntero(&estadias[i].telefonoContacto, "Ingrese el telefono de contacto (hasta 11 digitos): ", "Error, ingrese un telefono de contacto valido (hasta 11 digitos): ", 1100000000, 1199999999);
+	pedirEntero(&auxIdPerro, "Ingrese el id de su mascota (hasta 4 digitos): ", "Error, ingrese el id de su mascota (hasta 4 digitos): ", 7000, 7999);
+	/*while(validarArrayNumeros(perros, auxIdPerro, TAM_PERROS, 7000, 7999) != 0)
+	{
+		printf("Id no encontrado, reingrese el id de su mascota: ");
+		fflush(stdin);
+		scanf("%d", &auxIdPerro);
+	}
+	auxIdPerro = estadias[i].idPerro;*/
+
+	pedirString(auxNombreDuenio, "Ingrese el nombre del dueño del perro: ", "Nombre invalido, reingrese hasta 20 letras: ", 41);
+	while(validarArrayLetras(auxNombreDuenio, 41) != 0)
+	{
+		printf("Nombre invalido, reingrese hasta 20 letras: ");
+		fflush(stdin);
+		scanf("%[^\n]", auxNombreDuenio);
+	}
+	strcpy(duenios[i].nombre, auxNombreDuenio);
+
+	pedirEntero(&duenios[i].telefono, "Ingrese el telefono de contacto (hasta 11 digitos): ", "Error, ingrese un telefono de contacto valido (hasta 11 digitos): ", 1100000000, 1199999999);
 	cargarFecha(&estadias[i].fecha, i);
 
 	printf("\nEstadia a agregar:\n\n%-20s %-20s %-20s %-20s %-20s %-20s\n", "Id estadia", "Nombre dueño", "Telefono", "Dia", "Mes", "Año");
-	sEstadiaDiaria_mostrarEstadia(estadias[i]);
+	sEstadiaDiaria_mostrarEstadia(estadias[i], duenios[i]);
 
 	if(verificarConfirmacion("\nIngrese 's' para confirmar el alta de la estadia: ") == 0)
 	{
@@ -62,7 +81,7 @@ int sEstadiaDiaria_cargarEstadia(sEstadiaDiaria estadias[], int i)
 	return retorno;
 }
 
-int sEstadiaDiaria_cargarEstadias(sEstadiaDiaria estadias[], int tam)
+int sEstadiaDiaria_cargarEstadias(sEstadiaDiaria estadias[], sPerro perros[], sDuenio duenios[], int tam)
 {
 	int retorno = -1;
 	int index = sEstadiaDiaria_iniciarEstadias(estadias, tam);
@@ -71,7 +90,7 @@ int sEstadiaDiaria_cargarEstadias(sEstadiaDiaria estadias[], int tam)
 	{
 		printf("Agregando una estadia...\n\n");
 
-		if(sEstadiaDiaria_cargarEstadia(estadias, index) == 0)
+		if(sEstadiaDiaria_cargarEstadia(estadias, perros, duenios, index) == 0)
 		{
 			printf("\nSe agrego la estadia!!\n");
 			printf("----------------------------------\n\n");
@@ -111,7 +130,7 @@ int sEstadiaDiaria_iniciarEstadias(sEstadiaDiaria estadias[], int tam)
 	return index;
 }
 
-int sEstadiaDiaria_cancelarEstadia(sEstadiaDiaria estadias[], int tam)
+int sEstadiaDiaria_cancelarEstadia(sEstadiaDiaria estadias[], sDuenio duenios[], int tam)
 {
 	int retorno = -1;
 	int index;
@@ -124,7 +143,7 @@ int sEstadiaDiaria_cancelarEstadia(sEstadiaDiaria estadias[], int tam)
 	if(index != -1)
 	{
 		printf("\nEstadia a eliminar:\n\n%-20s %-20s %-20s %-20s\n", "ID", "Nombre dueño", "Telefono", "Fecha");
-		sEstadiaDiaria_mostrarEstadia(estadias[index]);
+		sEstadiaDiaria_mostrarEstadia(estadias[index], duenios[index]);
 
 		if(!verificarConfirmacion("\nIngrese 's' para confirmar la baja de la estadia: "))
 		{
@@ -162,13 +181,13 @@ int sEstadiaDiaria_buscarEstadiaPorId(sEstadiaDiaria estadias[], int tam, int id
 	return index;
 }
 
-int sEstadiaDiaria_modificarEstadia(sEstadiaDiaria estadias[], sPerro perros[], int tam)
+int sEstadiaDiaria_modificarEstadia(sEstadiaDiaria estadias[], sPerro perros[], sDuenio duenios[], int tam)
 {
 	int retorno = -1;
 	int index;
 	int idIngresado;
 	int opcion;
-	sEstadiaDiaria auxEstadia;
+	sDuenio auxDuenio;
 	sPerro auxPerro;
 
 	pedirEntero(&idIngresado, "Ingrese el id de la estadia a modificar (100000-200000)", "Error. Reingrese el id de la estadia a modificar (100000-200000)", 100000, 200000);
@@ -176,7 +195,7 @@ int sEstadiaDiaria_modificarEstadia(sEstadiaDiaria estadias[], sPerro perros[], 
 
 	if(index != -1)
 	{
-		auxEstadia = estadias[index];
+		auxDuenio = duenios[index];
 		do{
 			pedirEntero(&opcion, "-------------------------------------\n"
 										"1. Modificar telefono de contacto\n"
@@ -194,16 +213,16 @@ int sEstadiaDiaria_modificarEstadia(sEstadiaDiaria estadias[], sPerro perros[], 
 			switch(opcion)
 			{
 				case 1:
-					printf("\nEstadia a modificar:\n\n%-20s %-20s %-20s %-20s\n", "Id", "Nombre del dueño", "Telefono", "Fecha");
-					sEstadiaDiaria_mostrarEstadia(estadias[index]);
+					printf("\nEstadia a modificar:\n\n%-20s %-20s %-20s %-20s %-20s %-20s\n", "Id", "Nombre del dueño", "Telefono", "Dia", "mes", "Año");
+					sEstadiaDiaria_mostrarEstadia(estadias[index], duenios[index]);
 
-					pedirEntero(&auxEstadia.telefonoContacto, "Ingrese el nuevo telefono de contacto (hasta 11 digitos): ", "Error. Reingrese el nuevo telefono de contacto (hasta 11 digitos): ", 1100000000, 1199999999);
-					printf("\nEstadia luego de la modificacion:\n\n%-20s %-20s %-20s %-20s\n", "Id", "Nombre del dueño", "Telefono", "Fecha");
-					sEstadiaDiaria_mostrarEstadia(auxEstadia);
+					pedirEntero(&auxDuenio.telefono, "Ingrese el nuevo telefono de contacto (hasta 11 digitos): ", "Error. Reingrese el nuevo telefono de contacto (hasta 11 digitos): ", 1100000000, 1199999999);
+					printf("\nEstadia luego de la modificacion:\n\n%-20s %-20s %-20s %-20s %-20s %-20s\n", "Id", "Nombre del dueño", "Telefono", "Dia", "mes", "Año");
+					sEstadiaDiaria_mostrarEstadia(estadias[index], duenios[index]);
 
 					if(verificarConfirmacion("\nIngrese 's' para confirmar el cambio: ") == 0)
 					{
-						estadias[index].telefonoContacto = auxEstadia.telefonoContacto;
+						duenios[index].telefono = auxDuenio.telefono;
 						printf("\nTelefono modificado correctamente.\n");
 						retorno = 0;
 					}
@@ -217,9 +236,7 @@ int sEstadiaDiaria_modificarEstadia(sEstadiaDiaria estadias[], sPerro perros[], 
 					printf("\nPerro a modificar:\n\n%-20s %-20s %-20s %-20s\n", "Id", "Nombre", "Raza", "Edad");
 					sPerro_mostrarPerro(perros[index]);
 
-					pedirString(auxPerro.nombre, "Ingrese el nombre del perro: ", "Nombre invalido, hasta 20 caracteres, reingrese: ", 21);
-					pedirString(auxPerro.raza, "Ingrese la raza del perro: ", "Raza invalida, hasta 20 caracteres, reingrese: ", 21);
-					pedirEntero(&auxPerro.edad, "Ingrese la edad del perro: ", "Error, ingrese una edad valida: ", 1, 15);
+					pedirEntero(&auxPerro.id, "Ingrese el id de su mascota (hasta 4 digitos): ", "Error, ingrese el id de su mascota (hasta 4 digitos): ", 7000, 7002);
 
 					printf("\nPerro luego de la modificacion:\n\n%-20s %-20s %-20s %-20s\n", "Id", "Nombre", "Raza", "Edad");
 					sPerro_mostrarPerro(auxPerro);
@@ -249,4 +266,3 @@ int sEstadiaDiaria_modificarEstadia(sEstadiaDiaria estadias[], sPerro perros[], 
 
 	return retorno;
 }
-

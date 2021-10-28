@@ -10,6 +10,7 @@
 #include <string.h>
 #include <ctype.h>
 #include "sPerro_Funciones.h"
+#include "sDuenio_Funciones.h"
 #include "recuperatorioPPFecha.h"
 #include "recuperatorioPPInputs.h"
 #include "sEstadiaDiaria_Funciones.h"
@@ -23,6 +24,7 @@ int main(void) {
 
 	sPerro perros[TAM_PERROS];
 	sEstadiaDiaria estadias[TAM_ESTADIAS];
+	sDuenio duenios[TAM_DUENIOS];
 
 	sEstadiaDiaria_inicializar_Array(estadias, TAM_ESTADIAS);
 
@@ -55,7 +57,7 @@ int main(void) {
 			switch(opcion)
 			{
 				case 1:
-					if(sEstadiaDiaria_cargarEstadias(estadias, TAM_ESTADIAS) == 0)
+					if(sEstadiaDiaria_cargarEstadias(estadias, perros, duenios, TAM_ESTADIAS) == 0)
 					{
 						cantidadEstadias ++;
 					}
@@ -64,8 +66,8 @@ int main(void) {
 				case 2:
 					if(cantidadEstadias > 0)
 					{
-						sEstadiaDiaria_mostrarEstadias(estadias, TAM_ESTADIAS);
-						sEstadiaDiaria_modificarEstadia(estadias, perros, TAM_ESTADIAS);
+						sEstadiaDiaria_mostrarEstadias(estadias, duenios, TAM_ESTADIAS);
+						sEstadiaDiaria_modificarEstadia(estadias, perros, duenios, TAM_ESTADIAS);
 					}
 					else
 					{
@@ -76,8 +78,8 @@ int main(void) {
 				case 3:
 					if(cantidadEstadias > 0)
 					{
-						sEstadiaDiaria_mostrarEstadias(estadias, TAM_ESTADIAS);
-						sEstadiaDiaria_cancelarEstadia(estadias, TAM_ESTADIAS);
+						sEstadiaDiaria_mostrarEstadias(estadias, duenios, TAM_ESTADIAS);
+						sEstadiaDiaria_cancelarEstadia(estadias, duenios, TAM_ESTADIAS);
 					}
 					else
 					{
@@ -88,7 +90,7 @@ int main(void) {
 				case 4:
 					if(cantidadEstadias > 0)
 					{
-						sEstadiaDiaria_mostrarEstadias(estadias, TAM_ESTADIAS);
+						sEstadiaDiaria_mostrarEstadias(estadias, duenios, TAM_ESTADIAS);
 					}
 					else
 					{
