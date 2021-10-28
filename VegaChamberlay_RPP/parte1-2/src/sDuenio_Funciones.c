@@ -9,7 +9,7 @@ void sDuenio_hardCodear(sDuenio duenios[], int tam)
 {
 	int i;
 	int ids[] = {30000, 30001, 30002, 30003, 30004,};
-	char nombre[][51] = {"Carlos", "Juan", "Silvia", "Isabel", "Lupita"};
+	char nombre[][51] = {"carlos", "juan", "silvia", "isabel", "lupita"};
 	int telefono[] = {1121910810, 1121910811, 1121910812, 1121910813, 1121910814};
 
 	for(i=0; i<tam; i++)

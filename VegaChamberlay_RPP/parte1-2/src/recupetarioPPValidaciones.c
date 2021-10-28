@@ -5,29 +5,31 @@
 #include "sEstadiaDiaria_Funciones.h"
 #include "recupetarioPPValidaciones.h"
 
-int validarArrayLetras(char* aux, int max)
-{
-	int respuesta = 1;
-	int tam;
-
-	tam = strlen(aux);
-
-	if(isalpha(*aux) != 0 && tam < max)
-	{
-		respuesta = 0;
-	}
-
-	return respuesta;
-}
-
-int validarArrayNumeros(sPerro perros[], int auxIdPerro, int tam, int min, int max)
+int validarNombreDuenio(sDuenio duenios[], char* aux, int tam, int max)
 {
 	int respuesta = 1;
 	int i;
 
 	for(i=0; i<tam; i++)
 	{
-		if(isalpha(auxIdPerro) == 0 && perros[i].id == auxIdPerro && auxIdPerro > min && auxIdPerro < max)
+		if(isalpha(*aux) && strcmp(aux, duenios[i].nombre) == 0 && tam < max)
+		{
+			respuesta = 0;
+			break;
+		}
+	}
+
+	return respuesta;
+}
+
+int validarIdPerro(sPerro perros[], int aux, int tam, int min, int max)
+{
+	int respuesta = 1;
+	int i;
+
+	for(i=0; i<tam; i++)
+	{
+		if(isalpha(aux) == 0 && aux == perros[i].id && aux > min && aux < max)
 		{
 			respuesta= 0;
 			break;

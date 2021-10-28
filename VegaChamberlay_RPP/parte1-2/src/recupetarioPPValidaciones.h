@@ -5,7 +5,7 @@
 #include <string.h>
 #include <ctype.h>
 
-int validarArrayLetras(char* aux, int max);
-int validarArrayNumeros(sPerro perros[], int auxIdPerro, int tam, int min, int max);
+int validarNombreDuenio(sDuenio duenios[], char* aux, int tam, int max);
+int validarIdPerro(sPerro perros[], int aux, int tam, int min, int max);
 
 #endif /* RECUPETARIOPPVALIDACIONES_H_ */

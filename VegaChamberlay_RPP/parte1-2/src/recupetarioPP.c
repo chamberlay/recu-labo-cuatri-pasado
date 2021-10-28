@@ -30,87 +30,89 @@ int main(void) {
 
 	sPerro_inicializarArray(perros, TAM_PERROS);
 	sPerro_hardCodear(perros, TAM_PERROS);
+	sDuenio_hardCodear(duenios, TAM_DUENIOS);
 
-		do
+	do
+	{
+		pedirEntero(&opcion, "-------------------------------------\n"
+							"1. RESERVAR ESTADIA\n"
+							"2. MODIFICAR ESTADIA\n"
+							"3. CANCELAR ESTADIA\n"
+							"4. LISTAR ESTADIAS\n"
+							"5. LISTAR PERROS\n"
+							"6. PROMEDIO DE EDAD DE LOS PERROS\n"
+							"7. SALIR\n"
+							"--------------------------------------\n"
+							"Ingrese una opcion: \n",
+							"-------------------------------------\n"
+							"1. RESERVAR ESTADIA\n"
+							"2. MODIFICAR ESTADIA\n"
+							"3. CANCELAR ESTADIA\n"
+							"4. LISTAR ESTADIAS\n"
+							"5. LISTAR PERROS\n"
+							"6. PROMEDIO DE EDAD DE LOS PERROS\n"
+							"7. SALIR\n"
+							"--------------------------------------\n"
+							"Error, ingrese una opcion valida: \n", 1, 7);
+
+		switch(opcion)
 		{
-			pedirEntero(&opcion, "-------------------------------------\n"
-								"1. RESERVAR ESTADIA\n"
-								"2. MODIFICAR ESTADIA\n"
-								"3. CANCELAR ESTADIA\n"
-								"4. LISTAR ESTADIAS\n"
-								"5. LISTAR PERROS\n"
-								"6. PROMEDIO DE EDAD DE LOS PERROS\n"
-								"7. SALIR\n"
-								"--------------------------------------\n"
-								"Ingrese una opcion: \n",
-								"-------------------------------------\n"
-								"1. RESERVAR ESTADIA\n"
-								"2. MODIFICAR ESTADIA\n"
-								"3. CANCELAR ESTADIA\n"
-								"4. LISTAR ESTADIAS\n"
-								"5. LISTAR PERROS\n"
-								"6. PROMEDIO DE EDAD DE LOS PERROS\n"
-								"7. SALIR\n"
-								"--------------------------------------\n"
-								"Error, ingrese una opcion valida: \n", 1, 7);
+			case 1:
+				if(sEstadiaDiaria_cargarEstadias(estadias, perros, duenios, TAM_ESTADIAS) == 0)
+				{
+					cantidadEstadias ++;
+				}
+			break;
 
-			switch(opcion)
-			{
-				case 1:
-					if(sEstadiaDiaria_cargarEstadias(estadias, perros, duenios, TAM_ESTADIAS) == 0)
-					{
-						cantidadEstadias ++;
-					}
-				break;
+			case 2:
+				if(cantidadEstadias > 0)
+				{
+					sEstadiaDiaria_mostrarEstadias(estadias, duenios, perros, TAM_ESTADIAS);
+					sEstadiaDiaria_modificarEstadia(estadias, perros, duenios, TAM_ESTADIAS);
+				}
+				else
+				{
+					printf("No hay estadias cargadas.\n");
+				}
+			break;
 
-				case 2:
-					if(cantidadEstadias > 0)
-					{
-						sEstadiaDiaria_mostrarEstadias(estadias, duenios, TAM_ESTADIAS);
-						sEstadiaDiaria_modificarEstadia(estadias, perros, duenios, TAM_ESTADIAS);
-					}
-					else
-					{
-						printf("No hay estadias cargadas.\n");
-					}
-				break;
+			case 3:
+				if(cantidadEstadias > 0)
+				{
+					sEstadiaDiaria_mostrarEstadias(estadias, duenios, perros, TAM_ESTADIAS);
+					sEstadiaDiaria_cancelarEstadia(estadias, perros, duenios, TAM_ESTADIAS);
+					cantidadEstadias --;
+				}
+				else
+				{
+					printf("No hay estadias cargadas.\n");
+				}
+			break;
 
-				case 3:
-					if(cantidadEstadias > 0)
-					{
-						sEstadiaDiaria_mostrarEstadias(estadias, duenios, TAM_ESTADIAS);
-						sEstadiaDiaria_cancelarEstadia(estadias, duenios, TAM_ESTADIAS);
-					}
-					else
-					{
-						printf("No hay estadias cargadas.\n");
-					}
-				break;
+			case 4:
+				if(cantidadEstadias > 0)
+				{
+					sEstadiaDiaria_mostrarEstadias(estadias, duenios, perros, TAM_ESTADIAS);
+				}
+				else
+				{
+					printf("No hay estadias cargadas.\n");
+				}
+			break;
 
-				case 4:
-					if(cantidadEstadias > 0)
-					{
-						sEstadiaDiaria_mostrarEstadias(estadias, duenios, TAM_ESTADIAS);
-					}
-					else
-					{
-						printf("No hay estadias cargadas.\n");
-					}
-				break;
+			case 5:
+					sPerro_mostrarPerros(perros, TAM_PERROS);
+			break;
 
-				case 5:
-						sPerro_mostrarPerros(perros, TAM_PERROS);
-				break;
+			case 6:
+				printf("El promedio de edad de los perros es de: %d\n", sPerro_calcularPromedioEdad(perros, TAM_PERROS));
+			break;
 
-				case 6:
-					printf("El promedio de edad de los perros es de: %d\n", sPerro_calcularPromedioEdad(perros, TAM_PERROS));
-				break;
-
-				case 7:
-					printf("Terminando...\nPrograma terminado.\n");
-				break;
-			}
-		}while(opcion != 7);
+			case 7:
+				printf("Terminando...\nPrograma terminado.\n");
+			break;
+		}
+	}while(opcion != 7);
 
 	return EXIT_SUCCESS;
 }

@@ -5,10 +5,6 @@
 #include "sEstadiaDiaria_Funciones.h"
 #include "recupetarioPPValidaciones.h"
 
-/*validaciones: 1 si sale mal y 0 si sale bien
- accion: -1 si da error y 0 si esta bien
- */
-
 void sPerro_inicializarArray(sPerro perros[], int tam)
 {
 	int i;
