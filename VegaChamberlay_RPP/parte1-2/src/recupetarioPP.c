@@ -41,7 +41,9 @@ int main(void) {
 							"4. LISTAR ESTADIAS\n"
 							"5. LISTAR PERROS\n"
 							"6. PROMEDIO DE EDAD DE LOS PERROS\n"
-							"7. SALIR\n"
+							"7. EL PERRO CON MAS ESTADIAS\n"
+							"8. LISTADO DE PERROS POR ESTADIAS\n"
+							"9. SALIR\n"
 							"--------------------------------------\n"
 							"Ingrese una opcion: \n",
 							"-------------------------------------\n"
@@ -51,9 +53,11 @@ int main(void) {
 							"4. LISTAR ESTADIAS\n"
 							"5. LISTAR PERROS\n"
 							"6. PROMEDIO DE EDAD DE LOS PERROS\n"
-							"7. SALIR\n"
+							"7. EL PERRO CON MAS ESTADIAS\n"
+							"8. LISTADO DE PERROS POR ESTADIAS\n"
+							"9. SALIR\n"
 							"--------------------------------------\n"
-							"Error, ingrese una opcion valida: \n", 1, 7);
+							"Error, ingrese una opcion valida: \n", 1, 9);
 
 		switch(opcion)
 		{
@@ -109,10 +113,32 @@ int main(void) {
 			break;
 
 			case 7:
+				if(cantidadEstadias > 0)
+				{
+					printf("Perrito triste xq no pudo terminar el examen :(\n");
+				}
+				else
+				{
+					printf("No hay estadias cargadas.\n");
+				}
+			break;
+
+			case 8:
+				if(cantidadEstadias > 0)
+				{
+					printf("Perrito triste xq no pudo terminar el examen :(\n");
+				}
+				else
+				{
+					printf("No hay estadias cargadas.\n");
+				}
+			break;
+
+			case 9:
 				printf("Terminando...\nPrograma terminado.\n");
 			break;
 		}
-	}while(opcion != 7);
+	}while(opcion != 9);
 
 	return EXIT_SUCCESS;
 }

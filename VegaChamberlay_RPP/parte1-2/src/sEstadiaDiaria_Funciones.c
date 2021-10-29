@@ -89,6 +89,7 @@ int sEstadiaDiaria_cargarEstadias(sEstadiaDiaria estadias[], sPerro perros[], sD
 
 		if(sEstadiaDiaria_cargarEstadia(estadias, perros, duenios, index) == 0)
 		{
+
 			printf("\nSe agrego la estadia!!\n");
 			printf("----------------------------------\n\n");
 		}
